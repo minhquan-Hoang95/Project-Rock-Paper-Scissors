@@ -1,69 +1,113 @@
 
+let pointHuman = 0;
+let pointComputer = 0;
+const buttons = document.querySelectorAll('button');
+const div = document.querySelector('div');
+const para = document.querySelector('p');
+const countScore = document.createElement('div');
+const declareWinner = document.createElement('div');
+
+buttons.forEach(button => button.addEventListener('click', () => {
+    playRound(`${button.id}`);
+}));
+
+function playRound(playerSelection) {
+
+    let computer = computerPlay();
+
+    if (pointHuman < 5 && pointComputer < 5) {
+
+        if (playerSelection == 'rock') {
+
+            if(computer == 'rock'){
+                para.textContent = 'It is a tie Rock-Rock, try one more time !';
+            }
+            else if (computer == 'scissors') {
+                pointHuman++;
+                para.textContent = 'You win! Rock beats Scissors!';
+            }
+            else {
+                pointComputer++;
+                para.textContent = 'You lose! Paper beats Rock!';
+            }
+        }
+        else if (playerSelection == 'paper') {
+
+            if(computer == 'paper'){
+                para.textContent = 'It is a tie Paper - Paper, try one more time!';
+            }
+            else if (computer == 'rock') {
+                pointHuman++;
+                para.textContent = 'You win! Paper beats Rock!';
+            }
+            else {
+                pointComputer++;
+                para.textContent = 'You lose! Scissors beats Paper!';
+            }
+        }
+        else if (playerSelection == 'scissors') {
+
+            if(computer == 'scissors'){
+                para.textContent = 'It is a tie Scissors - Scissors, try one more time!';
+            }
+            else if (computer == 'paper') {
+                pointHuman++;
+                para.textContent = 'You win! Scissors beats Paper!';
+            }
+            else {
+                pointComputer++;
+                para.textContent = 'You lose! Rock beats Scissors!';
+            }
+        }
+        console.log(pointComputer);
+        console.log(pointHuman);
+    }
+    else if (pointHuman == 5 || pointComputer == 5) {
+            chooseWinner();
+        }
+    
+    countScore.textContent = ` Player point : ${pointHuman} and Computer point : ${pointComputer}`;
+    div.appendChild(countScore);
+    div.appendChild(declareWinner);
+
+}
+
 function computerPlay() {
+
     let random = Math.floor(Math.random()*3);
     if(random == 1) {
-        return 'Rock';
+        return 'rock';
     }
     else if (random == 2){
-        return 'Paper';
+        return 'paper';
     }
     else {
-        return 'Scissors';
+        return 'scissors';
     }
 
-}
-function playRound(playSelection, computerSelection)
-{
+}  
 
+function chooseWinner() {
+
+    if ( pointHuman < pointComputer){
+        declareWinner.textContent = `The winner is Computer with ${pointComputer} `;
+        declareWinner.setAttribute('style', 'color : gray');
+    }
+    else if (pointHuman > pointComputer) {
+       declareWinner.textContent = `The winner is you with ${pointHuman} `;
+       declareWinner.setAttribute('style','color : red');
+    }
     
-    playSelection = playSelection.toLowerCase();
-    computerSelection = computerSelection.toLowerCase();
-
-    if ((playSelection === 'rock' && computerSelection === 'rock') || (playSelection === 'paper' && computerSelection === 'paper') || (playSelection === 'scissors' && computerSelection === 'scissors')) {
-         
-         return (`It is a tie and we are the same ${playSelection}!`);
-         
-        //return 0; 
-    }
-    else if  (( playSelection === 'rock' && computerSelection === 'paper') || ( playSelection === 'paper' && computerSelection === 'scissors') || ( playSelection === 'scissors' && computerSelection === 'rock'))
-    {
-        pointComputer++;
-        return (`You lose! ${computerSelection} beats ${playSelection}`);
-        
-        //return -1;
-    }
-    else {
-        pointHuman++;
-        return (`You win!  ${playSelection} beats ${computerSelection}`);
-        
-        //return 1;
-    }
 }
-// const human = 'Scissors';
-// const computer = computerPlay();
-// console.log(playRound(human, computer));
 
-    let pointHuman = 0;
-    let pointComputer = 0;
-function game(){
-    
-    for (let i = 1; i < 6 ; i++){
-        let inputUser = prompt('Give me a thing!');
-        let computer = computerPlay();
-        console.log(playRound(inputUser.toLowerCase(), computer.toLowerCase()));
-        console.log('Your point:', pointHuman);
-        console.log('Computer\'s point: ', pointComputer);
-    }
-    if (pointHuman > pointComputer){
-        return `You win! You have ${pointHuman}`;
-    }
-    else if (pointHuman < pointComputer){
-        return `You lose! You have ${pointHuman}`;
-    }
-    else {
-        return `Phew, not bad, hein!`;
-    }
-}
+
+ 
+ 
+
+
+ 
+ 
+
 
 
 
