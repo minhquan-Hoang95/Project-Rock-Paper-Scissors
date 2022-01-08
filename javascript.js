@@ -96,8 +96,7 @@ function chooseWinner() {
     else if (pointHuman > pointComputer) {
        declareWinner.textContent = `The winner is you with ${pointHuman} `;
        declareWinner.setAttribute('style','color : red');
-    }
-    
+    }    
 }
 
 
